@@ -33,7 +33,7 @@
                     </select>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" id="form-search">筛选</button>
                 </div>
             </form>
             <!-- 列表区域 -->
@@ -55,25 +55,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>文章标题</td>
-                        <td>分类</td>
-                        <td>发表时间</td>
-                        <td>草稿</td>
-                        <td>
-                            <button type="button" class="layui-btn layui-btn-xs">编辑</button>
-                            <button type="button" class="layui-btn layui-btn-danger layui-btn-xs">删除</button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <!-- 分页区域 -->
             <div id="pageBox"></div>
         </div>
     </div>
+    <!-- 列表数据的模板引擎 -->
+    <script type="text/html" id="tpl-table">
+        {{each data}}
+        <tr>
+          <td>{{$value.title}}</td>
+          <td>{{$value.cate_name}}</td>
+          <td>{{$value.pub_date|dataFormat}}</td>
+          <td>{{$value.state}}</td>
+          <td>
+            <button type="button" class="layui-btn layui-btn-xs">编辑</button>
+            <button type="button" class="layui-btn layui-btn-danger layui-btn-xs btn-delete" data-id="{{$value.Id}}">删除</button>
+          </td>
+        </tr>
+        {{/each}}
+      </script>
+    <script type="text/html" id="tpl-cate">
+        <option value="">所有分类</option>
+        {{each data}}
+        <option value="{{$value.Id}}">{{$value.name}}</option>
+        {{/each}}
+      </script>
     <!-- 导入第三方的 JS 插件 -->
     <script src="/assets/lib/layui/layui.all.js"></script>
-
+    <script src="/assets/lib/jquery.js"></script>
+    <script src="/assets/lib/template-web.js"></script>
+    <script src="/assets/js/baseAPI.js"></script>
+    <script src="/assets/js/article/art_list.js"></script>
 </body>
 
 </html>
